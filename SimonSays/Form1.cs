@@ -22,6 +22,13 @@ namespace SimonSays
             InitializeComponent();
         }
 
+        public static SoundPlayer powerOn = new SoundPlayer(Properties.Resources.Turn_On_wav);
+        public static SoundPlayer buttonRed = new SoundPlayer(Properties.Resources.TrueRed);
+        public static SoundPlayer buttonYellow = new SoundPlayer(Properties.Resources.TrueYellow);
+        public static SoundPlayer buttonGreen = new SoundPlayer(Properties.Resources.TrueGreen);
+        public static SoundPlayer buttonBlue = new SoundPlayer(Properties.Resources.TrueBlue);
+        public static SoundPlayer soundJumpscare = new SoundPlayer(Properties.Resources.Jumpscare1);
+
         public static void ChangeScreen(object sender, UserControl next)
         {
             Form f; // will either be the sender or parent of sender 

@@ -126,6 +126,27 @@
   <ItemGroup>
     <None Include="Resources\SimonSaysImage.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Turn On.wav.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrueYellow.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrueRed.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrueGreen.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrueBlue.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jumpscare.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jumpscare.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

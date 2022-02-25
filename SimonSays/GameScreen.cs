@@ -48,40 +48,44 @@ namespace SimonSays
             {
                 if (oneNumber == Form1.numPattern[i])
                 {
+                    Form1.buttonGreen.Play();
                     greenButton.BackColor = Color.LimeGreen;
                     Refresh();
                     //Place Sound
-                    Thread.Sleep(500);
+                    Thread.Sleep(600);
                     greenButton.BackColor = Color.ForestGreen;
                     Refresh();
                 }
 
                 else if (twoNumber == Form1.numPattern[i])
                 {
+                    Form1.buttonRed.Play();
                     redButton.BackColor = Color.Firebrick;
                     Refresh();
                     //Place Sound
-                    Thread.Sleep(500);
+                    Thread.Sleep(600);
                     redButton.BackColor = Color.DarkRed;
                     Refresh();
                 }
 
                 else if (threeNumber == Form1.numPattern[i])
                 {
+                    Form1.buttonYellow.Play();
                     yellowButton.BackColor = Color.Yellow;
                     Refresh();
                     //Place Sound
-                    Thread.Sleep(500);
+                    Thread.Sleep(600);
                     yellowButton.BackColor = Color.Goldenrod;
                     Refresh();
                 }
 
                 else if (fourNumber == Form1.numPattern[i])
                 {
+                    Form1.buttonBlue.Play();
                     blueButton.BackColor = Color.RoyalBlue;
                     Refresh();
                     //Place Sound
-                    Thread.Sleep(500);
+                    Thread.Sleep(600);
                     blueButton.BackColor = Color.DarkBlue;
                     Refresh();
                 }
@@ -94,6 +98,7 @@ namespace SimonSays
         public void GameOver()
         {
             //TODO: Play a game over sound
+         
 
             //TODO: close this screen and open the GameOverScreen
             Form1.ChangeScreen(this, new GameOverScreen());
@@ -105,6 +110,7 @@ namespace SimonSays
         {
             if (Form1.numPattern[guessNumber] == 0)
             {
+                Form1.buttonGreen.Play();
                 greenButton.BackColor = Color.LimeGreen;
                 Refresh();
                 //Place Sound
@@ -120,16 +126,19 @@ namespace SimonSays
             }
 
             if (guessNumber == Form1.numPattern.Count)
+            {
                 //Play Sound
                 Thread.Sleep(500);
                 guessNumber = 0;
                 ComputerTurn();
+            }
         }
 
         private void redButton_Click(object sender, EventArgs e)
         {
             if (Form1.numPattern[guessNumber] == 1)
             {
+                Form1.buttonRed.Play();
                 redButton.BackColor = Color.Firebrick;
                 Refresh();
                 //Place Sound
@@ -142,12 +151,21 @@ namespace SimonSays
             {
                 GameOver();
             }
+
+            if (guessNumber == Form1.numPattern.Count)
+            {
+                //Play Sound
+                Thread.Sleep(500);
+                guessNumber = 0;
+                ComputerTurn();
+            }
         }
 
         private void yellowButton_Click(object sender, EventArgs e)
         {
             if (Form1.numPattern[guessNumber] == 2)
             {
+                Form1.buttonYellow.Play();
                 yellowButton.BackColor = Color.Yellow;
                 Refresh();
                 //Place Sound
@@ -160,12 +178,21 @@ namespace SimonSays
             {
                 GameOver();
             }
+
+            if (guessNumber == Form1.numPattern.Count)
+            {
+                //Play Sound
+                Thread.Sleep(500);
+                guessNumber = 0;
+                ComputerTurn();
+            }
         }
 
         private void blueButton_Click(object sender, EventArgs e)
         {
             if (Form1.numPattern[guessNumber] == 3)
             {
+                Form1.buttonBlue.Play();
                 blueButton.BackColor = Color.RoyalBlue;
                 Refresh();
                 //Place Sound
@@ -177,6 +204,14 @@ namespace SimonSays
             else
             {
                 GameOver();
+            }
+
+            if (guessNumber == Form1.numPattern.Count)
+            {
+                //Play Sound
+                Thread.Sleep(500);
+                guessNumber = 0;
+                ComputerTurn();
             }
 
             //TODO: is the value at current guess index equal to a green. If so:

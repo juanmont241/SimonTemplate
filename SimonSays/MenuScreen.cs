@@ -19,7 +19,9 @@ namespace SimonSays
         private void newButton_Click(object sender, EventArgs e)
         {
             //TODO: remove this screen and start the GameScreen
+           // Form1.buttonGreen.Play();
             Form1.ChangeScreen(this, new GameScreen());
+           
         }
 
 
