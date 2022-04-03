@@ -14,134 +14,144 @@ namespace SimonSays
 {
     public partial class GameScreen : UserControl
     {
-        //TODO: create guess variable to track what part of the pattern the user is at
-        int guessNumber = 0;
-        Random randGen = new Random();
 
-        int oneNumber = 0;
-        int twoNumber = 1;
-        int threeNumber = 2;
-        int fourNumber = 3;
+        int guessNumber = 0; //Set the guessNumber
+        Random randGen = new Random(); //Declare the randomGen
+
+        List<SoundPlayer> soundList = new List<SoundPlayer>(); //List to store all sounds
 
         public GameScreen()
         {
+            //Declare all the sounds that will be use for the game
+            SoundPlayer buttonRed = new SoundPlayer(Properties.Resources.TrueRed);
+            SoundPlayer buttonYellow = new SoundPlayer(Properties.Resources.TrueYellow);
+            SoundPlayer buttonGreen = new SoundPlayer(Properties.Resources.TrueGreen);
+            SoundPlayer buttonBlue = new SoundPlayer(Properties.Resources.TrueBlue);
+            SoundPlayer soundJumpscare = new SoundPlayer(Properties.Resources.Jumpscare1);
+
+            //Add thoses said sounds to the soundList
+            soundList.Add(buttonRed);
+            soundList.Add(buttonYellow);
+            soundList.Add(buttonGreen);
+            soundList.Add(buttonBlue);
+            soundList.Add(soundJumpscare);
+
             InitializeComponent();
         }
 
         private void GameScreen_Load(object sender, EventArgs e)
         {
-            //TODO: clear the pattern list from form1, refresh, pause for a bit, and run ComputerTurn()
+            //Reset the pattern list from form 1
             Form1.numPattern.Clear();
-            Refresh();
+            Refresh(); 
+            //Wait for a moment
             Thread.Sleep(1000);
+            //Then its the computer's turn
             ComputerTurn();
         }
 
-        private void ComputerTurn()
+        private void ComputerTurn() //What would the Computer player do
         {
-            //TODO: get rand num between 0 and 4 (0, 1, 2, 3) and add to pattern list
+            //Set which number is asigned to the guessNumber
             guessNumber = randGen.Next(0, 4);
+            //Add that said number to the numPattern List
             Form1.numPattern.Add(guessNumber);
 
-            //TODO: create a for loop that shows each value in the pattern by lighting up approriate button
-            for (int i = 0; i < Form1.numPattern.Count(); i++)
+            
+            for (int i = 0; i < Form1.numPattern.Count(); i++) //For loop (The numPattern Count increaces each time the player completes a pattern)
             {
-                if (oneNumber == Form1.numPattern[i])
+                //if statements showing what happens if the guessNumber has either 0, 1, 2, or 3
+                if (Form1.numPattern[i] == 0) //If the list pattern from Form1 is #.
                 {
-                    Form1.buttonGreen.Play();
-                    greenButton.BackColor = Color.LimeGreen;
-                    Refresh();
-                    //Place Sound
-                    Thread.Sleep(600);
-                    greenButton.BackColor = Color.ForestGreen;
+                    soundList[2].Play(); //Plays color sound
+                    greenButton.BackColor = Color.LimeGreen; //Change to a lighter Color
+                    Refresh(); //Refresh the screen
+                    Thread.Sleep(600); //Wait for a moment
+                    greenButton.BackColor = Color.ForestGreen; //Change the color back to its normal state
                     Refresh();
                 }
 
-                else if (twoNumber == Form1.numPattern[i])
+                else if (Form1.numPattern[i] == 1) //Red Button
                 {
-                    Form1.buttonRed.Play();
+                    soundList[0].Play();
                     redButton.BackColor = Color.Firebrick;
                     Refresh();
-                    //Place Sound
                     Thread.Sleep(600);
                     redButton.BackColor = Color.DarkRed;
                     Refresh();
                 }
 
-                else if (threeNumber == Form1.numPattern[i])
+                else if (Form1.numPattern[i] == 2) //Yellow Button
                 {
-                    Form1.buttonYellow.Play();
+                    soundList[1].Play();
                     yellowButton.BackColor = Color.Yellow;
                     Refresh();
-                    //Place Sound
                     Thread.Sleep(600);
                     yellowButton.BackColor = Color.Goldenrod;
                     Refresh();
                 }
 
-                else if (fourNumber == Form1.numPattern[i])
+                else if (Form1.numPattern[i] == 3) //Blue Button
                 {
-                    Form1.buttonBlue.Play();
+                    soundList[3].Play();
                     blueButton.BackColor = Color.RoyalBlue;
                     Refresh();
-                    //Place Sound
                     Thread.Sleep(600);
                     blueButton.BackColor = Color.DarkBlue;
                     Refresh();
                 }
             }
 
-            //TODO: get guess index value back to 0
+            //Sets the guessNumber back to 0
             guessNumber = 0;
         }
 
         public void GameOver()
         {
-            //TODO: Play a game over sound
-         
+            //Plays the jumpscare sound
+            soundList[4].Play();
 
-            //TODO: close this screen and open the GameOverScreen
+            //Changes the screen to the GameOverScreen
             Form1.ChangeScreen(this, new GameOverScreen());
 
+           //NOTE: When the GameScreen changes to the GameOverScreen a jumpscare gif will start the moment the change from screen happens
         }
 
-        //TODO: create one of these event methods for each button
-        private void greenButton_Click(object sender, EventArgs e)
+        //Now its the Player's turn to do the pattern
+
+        private void greenButton_Click(object sender, EventArgs e) //Green Button (Same code from ComputerTurn())
         {
             if (Form1.numPattern[guessNumber] == 0)
             {
-                Form1.buttonGreen.Play();
+                soundList[2].Play();
                 greenButton.BackColor = Color.LimeGreen;
                 Refresh();
-                //Place Sound
                 Thread.Sleep(500);
                 greenButton.BackColor = Color.ForestGreen;
                 Refresh();
-                guessNumber++;
+                guessNumber++; //Add one to the guessNumber so the game doesn't softlock
             }
 
             else
             {
-                GameOver();
+                GameOver(); //This is if the player messes up the Pattern
             }
 
-            if (guessNumber == Form1.numPattern.Count)
+            if (guessNumber == Form1.numPattern.Count) //If the player choses the right color pattern and reaches the end of the numPattern.Count
             {
-                //Play Sound
-                Thread.Sleep(500);
-                guessNumber = 0;
-                ComputerTurn();
+                Thread.Sleep(500); //Wait for a moment
+                guessNumber = 0; //Reset the guessNumber
+                ComputerTurn(); //Now its the Computer's Turn
             }
         }
 
-        private void redButton_Click(object sender, EventArgs e)
+        private void redButton_Click(object sender, EventArgs e) //Red Button (Same code from ComputerTurn())
         {
             if (Form1.numPattern[guessNumber] == 1)
             {
-                Form1.buttonRed.Play();
+                soundList[0].Play();
                 redButton.BackColor = Color.Firebrick;
                 Refresh();
-                //Place Sound
                 Thread.Sleep(500);
                 redButton.BackColor = Color.DarkRed;
                 Refresh();
@@ -154,21 +164,19 @@ namespace SimonSays
 
             if (guessNumber == Form1.numPattern.Count)
             {
-                //Play Sound
                 Thread.Sleep(500);
                 guessNumber = 0;
                 ComputerTurn();
             }
         }
 
-        private void yellowButton_Click(object sender, EventArgs e)
+        private void yellowButton_Click(object sender, EventArgs e) //Yellow Button (Same code from ComputerTurn())
         {
             if (Form1.numPattern[guessNumber] == 2)
             {
-                Form1.buttonYellow.Play();
+                soundList[1].Play();
                 yellowButton.BackColor = Color.Yellow;
                 Refresh();
-                //Place Sound
                 Thread.Sleep(500);
                 yellowButton.BackColor = Color.Goldenrod;
                 Refresh();
@@ -181,21 +189,19 @@ namespace SimonSays
 
             if (guessNumber == Form1.numPattern.Count)
             {
-                //Play Sound
                 Thread.Sleep(500);
                 guessNumber = 0;
                 ComputerTurn();
             }
         }
 
-        private void blueButton_Click(object sender, EventArgs e)
+        private void blueButton_Click(object sender, EventArgs e) //Blue Button (Same code from ComputerTurn())
         {
             if (Form1.numPattern[guessNumber] == 3)
             {
-                Form1.buttonBlue.Play();
+                soundList[3].Play();
                 blueButton.BackColor = Color.RoyalBlue;
                 Refresh();
-                //Place Sound
                 Thread.Sleep(500);
                 blueButton.BackColor = Color.DarkBlue;
                 Refresh();
@@ -208,19 +214,10 @@ namespace SimonSays
 
             if (guessNumber == Form1.numPattern.Count)
             {
-                //Play Sound
                 Thread.Sleep(500);
                 guessNumber = 0;
                 ComputerTurn();
             }
-
-            //TODO: is the value at current guess index equal to a green. If so:
-            // light up button, play sound, and pause
-            // set button colour back to original
-            // add one to the guess index
-            // check to see if we are at the end of the pattern. If so:
-            // call ComputerTurn() method
-            // else call GameOver method
         }
     }
 }

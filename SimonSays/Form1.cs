@@ -12,40 +12,37 @@ using System.Drawing.Drawing2D;
 
 namespace SimonSays
 {
+
+    //Juan Montoya
+    //February 25th 2022
+    //Simion Says - Five Nights At Freddy's Themed
+
     public partial class Form1 : Form
     {
         public static List<int> numPattern = new List<int>();
-        //TODO: create a List to store the pattern. Must be accessable on other screens
+        //Creates a list for the Pattern the AI is going to set
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        public static SoundPlayer powerOn = new SoundPlayer(Properties.Resources.Turn_On_wav);
-        public static SoundPlayer buttonRed = new SoundPlayer(Properties.Resources.TrueRed);
-        public static SoundPlayer buttonYellow = new SoundPlayer(Properties.Resources.TrueYellow);
-        public static SoundPlayer buttonGreen = new SoundPlayer(Properties.Resources.TrueGreen);
-        public static SoundPlayer buttonBlue = new SoundPlayer(Properties.Resources.TrueBlue);
-        public static SoundPlayer soundJumpscare = new SoundPlayer(Properties.Resources.Jumpscare1);
-
-        public static void ChangeScreen(object sender, UserControl next)
+        public static void ChangeScreen(object sender, UserControl next) //Code for changing from screen to screen
         {
-            Form f; // will either be the sender or parent of sender 
+            Form f; 
 
             if (sender is Form)
             {
-                f = (Form)sender;    //f is sender
+                f = (Form)sender;    
             }
 
             else
             {
-                UserControl current = (UserControl)sender;  //create UserControl from sender 
-                f = current.FindForm();                     //find Form UserControl is on 
-                f.Controls.Remove(current);                 //remove current UserControl
+                UserControl current = (UserControl)sender;  
+                f = current.FindForm();                     
+                f.Controls.Remove(current);                
             }
 
-            // add the new UserControl to the middle of the screen and focus on it 
             next.Location = new Point((f.ClientSize.Width - next.Width) / 2,
                 (f.ClientSize.Height - next.Height) / 2);
 
@@ -53,21 +50,9 @@ namespace SimonSays
             next.Focus();
         }
 
-        public static void ChangeScreen(UserControl current, UserControl next)
-        {
-
-            Form f = current.FindForm();
-            f.Controls.Remove(current);
-
-            next.Location = new Point((f.ClientSize.Width - next.Width) / 2,
-                (f.ClientSize.Height - next.Height) / 2);
-
-            next.Focus();
-            f.Controls.Add(next);
-        }
         private void Form1_Load(object sender, EventArgs e)
         {
-            //TODO: Launch MenuScreen
+            //Changes screen to MenuScreen
             Form1.ChangeScreen(this, new MenuScreen());
 
         }
